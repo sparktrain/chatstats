@@ -1,15 +1,19 @@
-function [chatStats] = generateStats(chatFile)
+function [chatStats] = generateChatStats(chatFile)
 % PS Chat Statistics Generator
-%   This function takes .txt files of PS chat logs as
-%   input and generates various statistics.
+%   This function takes a .txt file of a Pokemon Showdown chat log as
+%   input, then generates a list of all unique usernames ranked by number
+%   of messages sent to the chat room. The percentage of total messages
+%   sent to the chat room and average line length is also shown.
 
 chatLines = 0;
 totalLines = 0;
 fid = fopen(chatFile);
 while feof(fid) == 0
     line = fgetl(fid);
-    if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|')
-        chatLines = chatLines + 1;
+    if length(line) >= 14
+        if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|')
+            chatLines = chatLines + 1;
+        end
     end
     totalLines = totalLines + 1;
 end
@@ -23,13 +27,15 @@ currentChatLine = 1;
 fid = fopen(chatFile);
 while feof(fid) == 0
     line = fgetl(fid);
-    if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|')
-        verticalBars = strfind(line, '|');
-        fullUsername = line((verticalBars(2) + 2):(verticalBars(3) - 1));
-        alphanumericUsername = lower(regexprep(fullUsername, '[^a-zA-Z0-9]', ''));
-        usernames(currentChatLine) = java.lang.String(alphanumericUsername);
-        characterCount(currentChatLine) = length(line) - verticalBars(3);
-        currentChatLine = currentChatLine + 1;
+    if length(line) >= 14
+        if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|')
+            verticalBars = strfind(line, '|');
+            fullUsername = line((verticalBars(2) + 2):(verticalBars(3) - 1));
+            alphanumericUsername = lower(regexprep(fullUsername, '[^a-zA-Z0-9]', ''));
+            usernames(currentChatLine) = java.lang.String(alphanumericUsername);
+            characterCount(currentChatLine) = length(line) - verticalBars(3);
+            currentChatLine = currentChatLine + 1;
+        end
     end
 end
 fclose(fid);
