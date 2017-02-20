@@ -78,9 +78,9 @@ d2 = num2cell(transpose(messageCount));
 d3 = num2cell(transpose(messagePercent));
 d4 = num2cell(transpose(averageLength));
 
-dataArray = [d1, d2, d3, d4];
+dataArray = [d1 d2 d3 d4];
 
-sortedData = sortrows(dataArray, - 2);
+sortedData = sortrows(dataArray, -2);
 sortedData(size(sortedData, 1), :) = [];
 
 rank = cell(size(sortedData, 1), 1);
@@ -88,9 +88,9 @@ for i = 1:size(sortedData, 1)
     rank(i) = num2cell(i);
 end
 
-header = {'Rank', 'Username', 'Lines', '%Total', 'AvgLength'};
+header = {'Rank' 'Username' 'Lines' '%Total' 'AvgLength'};
 
 
-chatStats = [header; [rank, sortedData]];
+chatStats = [header; [rank sortedData]];
 
 end
