@@ -6,7 +6,6 @@ function [tourStats] = generateTourStats(chatFile)
 tourLines = 0;
 tourCreates = 0;
 totalLines = 0;
-x = 0;
 fid = fopen(chatFile);
 while feof(fid) == 0
     line = fgetl(fid);
@@ -60,7 +59,7 @@ else
     fprintf('The tournament database has been generated.\n');
 
     uniqueTourFormats = java_array('java.lang.String', 1);
-    tourFormatCount = 0;
+    tourFormatCount = double.empty(0, tourCreates);
 
     fprintf('Scanning the tournament database...\n');
     for i = 1:tourCreates
@@ -75,12 +74,12 @@ else
             uniqueTourFormats(length(uniqueTourFormats) + 1) = tourFormats(i);
             tourFormatCount(length(uniqueTourFormats)) = 1;
         end
-        if i == tourCreates || rem(i, 1) == 0
-            fprintf('%d/%d lines scanned\n', i, tourCreates);
-        end
+        % if i == tourCreates || rem(i, 1) == 0
+        %     fprintf('%d/%d lines scanned\n', i, tourCreates);
+        % end
     end
     
-    tourFormatPercent = [0];
+    tourFormatPercent = double.empty(0,tourCreates);
     for i = 1:length(tourFormatCount)
         tourFormatPercent(i) = 100 * (tourFormatCount(i) / tourCreates);
     end
