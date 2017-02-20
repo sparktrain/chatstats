@@ -42,7 +42,7 @@ fclose(fid);
 fprintf('The username database has been generated.\n');
 
 uniqueUsernames = java_array('java.lang.String', 1);
-messageCount = 0;
+messageCount = double.empty(0, chatLines);
 uniqueCharacterCount = zeros(1, chatLines);
 
 fprintf('Scanning the username database...\n');
@@ -60,12 +60,12 @@ for i = 1:chatLines
         messageCount(length(uniqueUsernames)) = 1;
         uniqueCharacterCount(length(uniqueUsernames)) = uniqueCharacterCount(length(uniqueUsernames)) + characterCount(i);
     end
-    if i == chatLines || rem(i, 100) == 0
-        fprintf('%d/%d lines scanned\n', i, chatLines);
-    end
+    % if i == chatLines || rem(i, 100) == 0
+    %     fprintf('%d/%d lines scanned\n', i, chatLines);
+    % end
 end
 
-messagePercent = [0];
+messagePercent = double.empty(0,chatLines);
 for i = 1:length(messageCount)
     messagePercent(i) = 100 * (messageCount(i) / chatLines);
 end
