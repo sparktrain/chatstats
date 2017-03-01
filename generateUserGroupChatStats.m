@@ -1,6 +1,6 @@
 function [userGroupChatStats] = generateUserGroupChatStats(chatFile)
-% PS Chat Statistics Generator for User Groups
-%   This function takes a .txt file of a Pokemon Showdown chat log as
+% User Group Chat Statistics Generator
+%   This function takes a .txt file of a Pokémon Showdown chat log as
 %   input, then generates a list of PS user groups ranked by number of
 %   messages collectively sent to the chat room. The percentage of total 
 %   messages sent to the chat room and average line length is also shown.
@@ -9,7 +9,7 @@ chatLines = 0;
 totalLines = 0;
 lines = zeros(8,1);
 characterCount = zeros(8,1);
-fid = fopen(chatFile);
+fid = fopen(['logs/' chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 14
@@ -69,7 +69,6 @@ for i = 1:size(sortedData, 1)
 end
 
 header = {'Rank' 'User Group' 'Lines' '%Total' 'AvgLength'};
-
 
 userGroupChatStats = [header; [rank sortedData]];
 

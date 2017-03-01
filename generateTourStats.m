@@ -1,12 +1,12 @@
 function [tourStats] = generateTourStats(chatFile)
-% PS Tour Statistics Generator
-%   This function takes a .txt file of a Pokemon Showdown chat log as
-%   input, then generates a list of tour statistics.
+% Tournament Statistics Generator
+%   This function takes a .txt file of a Pokémon Showdown chat log as
+%   input, then generates a list of tournament statistics.
 
 tourLines = 0;
 tourCreates = 0;
 totalLines = 0;
-fid = fopen(chatFile);
+fid = fopen(['logs/' chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 21
@@ -38,7 +38,7 @@ else
     
     tourFormats = java_array('java.lang.String', tourCreates);
     currentChatLine = 1;
-    fid = fopen(chatFile);
+    fid = fopen(['logs/' chatFile]);
     while feof(fid) == 0
         line = fgetl(fid);
         if length(line) >= 21

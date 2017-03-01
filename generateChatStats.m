@@ -1,13 +1,13 @@
 function [chatStats] = generateChatStats(chatFile)
-% PS Chat Statistics Generator
-%   This function takes a .txt file of a Pokemon Showdown chat log as
+% Chat Statistics Generator
+%   This function takes a .txt file of a Pokémon Showdown chat log as
 %   input, then generates a list of all unique usernames ranked by number
 %   of messages sent to the chat room. The percentage of total messages
 %   sent to the chat room and average line length is also shown.
 
 chatLines = 0;
 totalLines = 0;
-fid = fopen(chatFile);
+fid = fopen(['logs/' chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 14
@@ -24,7 +24,7 @@ fprintf('There are %d chat lines and %d total lines.\n', chatLines, totalLines);
 usernames = java_array('java.lang.String', chatLines);
 characterCount = zeros(1, chatLines);
 currentChatLine = 1;
-fid = fopen(chatFile);
+fid = fopen(['logs/' chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 14
@@ -60,9 +60,9 @@ for i = 1:chatLines
         messageCount(length(uniqueUsernames)) = 1;
         uniqueCharacterCount(length(uniqueUsernames)) = uniqueCharacterCount(length(uniqueUsernames)) + characterCount(i);
     end
-    % if i == chatLines || rem(i, 100) == 0
-    %     fprintf('%d/%d lines scanned\n', i, chatLines);
-    % end
+    if i == chatLines || rem(i, 100) == 0
+        fprintf('%d/%d lines scanned\n', i, chatLines);
+    end
 end
 
 messagePercent = double.empty(0,chatLines);
@@ -89,7 +89,6 @@ for i = 1:size(sortedData, 1)
 end
 
 header = {'Rank' 'Username' 'Lines' '%Total' 'AvgLength'};
-
 
 chatStats = [header; [rank sortedData]];
 
