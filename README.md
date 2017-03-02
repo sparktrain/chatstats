@@ -1,13 +1,14 @@
 # Pokémon Showdown Chat Statistics
 
-MATLAB-based chat statistics generator for Pokémon Showdown.
+MATLAB-based chat statistics generator for [Pokémon Showdown](https://github.com/Zarel/Pokemon-Showdown).
 
 ## License
 
-[MIT License][1]
-
-  [1]: https://github.com/sparktrain/chatstats/blob/master/LICENSE
+[MIT License](https://github.com/sparktrain/chatstats/blob/master/LICENSE)
 
 ## Credits
 
-Written by sparktrain.
+[![sparktrain](https://avatars2.githubusercontent.com/u/7269774?v=3&s=120)](http://creaturephil.github.io)|
+:-:|
+[**sparktrain**](https://github.com/sparktrain)|
+Developer|
