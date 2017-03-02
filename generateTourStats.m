@@ -26,10 +26,7 @@ fclose(fid);
 fprintf('The chat log has been scanned.\n');
 fprintf('There are %d tournament lines and %d total lines.\n', tourLines, totalLines);
 
-if tourCreates == 0;
-    fprintf('There were no tournaments created during this period. How disappointing.\n');
-    tourStats = 0;
-else
+if tourCreates > 0
     if tourCreates == 1;
             fprintf('There was 1 tournament created during this period.\n');
     else
@@ -74,9 +71,9 @@ else
             uniqueTourFormats(length(uniqueTourFormats) + 1) = tourFormats(i);
             tourFormatCount(length(uniqueTourFormats)) = 1;
         end
-        % if i == tourCreates || rem(i, 1) == 0
-        %     fprintf('%d/%d lines scanned\n', i, tourCreates);
-        % end
+        if i == tourCreates || rem(i, 1) == 0
+            fprintf('%d/%d lines scanned\n', i, tourCreates);
+        end
     end
     
     tourFormatPercent = double.empty(0,tourCreates);
@@ -98,9 +95,11 @@ else
         rank(i) = num2cell(i);
     end
 
-header = {'Rank' 'Format' '#' '%Total'};
-
-tourStats = [header; [rank sortedData]];
+    header = {'Rank' 'Format' '#' '%Total'};
+    tourStats = [header; [rank sortedData]];
+else
+    fprintf('There were no tournaments created during this period.\n');
+    tourStats = 0;
 end
 
 end
