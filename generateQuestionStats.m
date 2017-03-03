@@ -88,7 +88,7 @@ if questionLines > 0
         rank(i) = num2cell(i);
     end
 
-    header = {'Rank' 'Username' 'Questions' '%Total'};
+    header = {'Rank' 'Username' 'Questions' 'Percent Total'};
     questionStats = [header; [rank sortedData]];
 else
     fprintf('There were no lines containing question marks during this period.\n');

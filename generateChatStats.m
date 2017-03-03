@@ -88,7 +88,7 @@ for i = 1:size(sortedData, 1)
     rank(i) = num2cell(i);
 end
 
-header = {'Rank' 'Username' 'Lines' '%Total' 'AvgLength'};
+header = {'Rank' 'Username' 'Lines' 'Percent Total' 'Average Length'};
 
 chatStats = [header; [rank sortedData]];
 

@@ -53,7 +53,7 @@ fprintf('There are %d chat lines and %d total lines.\n', chatLines, totalLines);
 messagePercent = 100 * (lines / chatLines);
 averageLength = rdivide(characterCount, lines);
 
-d1 = {'Voices (+)'; 'Drivers (%)'; 'Moderators (@)'; 'Bots (*)'; 'Room Owners (#)'; 'Leaders (&)'; 'Administrators (~)'; 'Regular Users'};
+d1 = {'Voices'; 'Drivers'; 'Moderators'; 'Bots'; 'Room Owners'; 'Leaders'; 'Administrators'; 'Regular Users'};
 d2 = num2cell(lines);
 d3 = num2cell(messagePercent);
 d4 = num2cell(averageLength);
@@ -68,7 +68,7 @@ for i = 1:size(sortedData, 1)
     rank(i) = num2cell(i);
 end
 
-header = {'Rank' 'User Group' 'Lines' '%Total' 'AvgLength'};
+header = {'Rank' 'User Group' 'Lines' 'Percent Total' 'Average Length'};
 
 userGroupChatStats = [header; [rank sortedData]];
 

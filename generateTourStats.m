@@ -95,7 +95,7 @@ if tourCreates > 0
         rank(i) = num2cell(i);
     end
 
-    header = {'Rank' 'Format' '#' '%Total'};
+    header = {'Rank' 'Format' '#' 'Percent Total'};
     tourStats = [header; [rank sortedData]];
 else
     fprintf('There were no tournaments created during this period.\n');

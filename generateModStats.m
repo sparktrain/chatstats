@@ -84,7 +84,7 @@ if modLines > 0
         rank(i) = num2cell(i);
     end
 
-    header = {'Rank' 'Username' 'ModActions' '%Total'};
+    header = {'Rank' 'Username' 'Mod Actions' 'Percent Total'};
     modStats = [header; [rank sortedData]];
 else
     fprintf('There were no moderative actions taken during this period.\n');
