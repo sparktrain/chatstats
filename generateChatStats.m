@@ -77,14 +77,24 @@ c1 = cell(uniqueUsernames);
 c2 = num2cell(transpose(messageCount));
 c3 = num2cell(transpose(messagePercent));
 c4 = num2cell(transpose(averageLength));
-dataArray = [c1 c2 c3 c4];
-sortedData = sortrows(dataArray, -2);
-sortedData(size(sortedData, 1),:) = [];
+c5 = cellfun(@(x,y) x.*y, c2, c4, 'UniformOutput', false); % Total Character Count
+dataArray = [c1 c2 c3 c4 c5];
+
+sortedWeightedData = sortrows(dataArray, -5);
+sortedWeightedData(1,:) = [];
+weightedRank = cell(size(sortedWeightedData, 1), 1);
+for i = 1:size(sortedWeightedData, 1)
+    weightedRank(i) = num2cell(i);
+end
+sortedWeightedData = [sortedWeightedData(:, 1:4) weightedRank];
+
+sortedData = sortrows(sortedWeightedData, -2);
 rank = cell(size(sortedData, 1), 1);
 for i = 1:size(sortedData, 1)
     rank(i) = num2cell(i);
 end
-header = {'Rank' 'Username' 'Lines' 'Percent Total' 'Average Length'};
+
+header = {'Rank' 'Username' 'Lines' 'Percent Total' 'Average Length' 'Weighted Rank'};
 chatStats = [header; [rank sortedData]];
 
 end

@@ -57,14 +57,24 @@ c1 = {'Voices'; 'Drivers'; 'Moderators'; 'Bots'; 'Room Owners'; 'Leaders'; 'Admi
 c2 = num2cell(lines);
 c3 = num2cell(messagePercent);
 c4 = num2cell(averageLength);
-dataArray = [c1 c2 c3 c4];
-sortedData = sortrows(dataArray, -2);
-sortedData = sortedData(all(cell2mat(sortedData(:, 2)) ~= 0, 2),:);
+c5 = cellfun(@(x,y) x.*y, c2, c4, 'UniformOutput', false); % Total Character Count
+dataArray = [c1 c2 c3 c4 c5];
+
+sortedWeightedData = sortrows(dataArray, -5);
+sortedWeightedData = sortedWeightedData(all(cell2mat(sortedWeightedData(:, 2)) ~= 0, 5),:);
+weightedRank = cell(size(sortedWeightedData, 1), 1);
+for i = 1:size(sortedWeightedData, 1)
+    weightedRank(i) = num2cell(i);
+end
+sortedWeightedData = [sortedWeightedData(:, 1:4) weightedRank];
+
+sortedData = sortrows(sortedWeightedData, -2);
 rank = cell(size(sortedData, 1), 1);
 for i = 1:size(sortedData, 1)
     rank(i) = num2cell(i);
 end
-header = {'Rank' 'User Group' 'Lines' 'Percent Total' 'Average Length'};
+
+header = {'Rank' 'User Group' 'Lines' 'Percent Total' 'Average Length' 'Weighted Rank'};
 userGroupChatStats = [header; [rank sortedData]];
 
 end
