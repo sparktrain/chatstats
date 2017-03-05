@@ -1,8 +1,9 @@
 function chat2stats(chatFile)
 % Chat Log to Chat Statistics
 %   This function takes a .txt file of a Pokémon Showdown chat log as
-%   input, runs it through all the statistics generating function, converts
-%   the resulting data to .csv files, then saves them in the stats folder.
+%   input, runs it through all of the statistics generating functions,
+%   then converts the resulting cell arrays to .csv files which are stored
+%   in the stats folder.
 
 cell2csv(generateChatStats(chatFile), ['stats/' chatFile(1:length(chatFile)-4) '-chatStats.csv']);
 fprintf('Chat Statistics have been successfully generated and saved.\n');
