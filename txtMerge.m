@@ -1,6 +1,6 @@
 function txtMerge(filePrefix)
 % Text File Merger
-%	This function merges multiple text files into one text file. More
+%   This function merges multiple text files into one text file. More
 %   specifically, this function is used to combine the daily chat logs into
 %   one monthly chat log, or perhaps even a yearly chat log if you're
 %   brave.
@@ -11,12 +11,12 @@ function txtMerge(filePrefix)
 %   entitled '2017-01.txt'.
 
 fileList = struct2cell(dir('logs'));
-fileNames = fileList(1,1:length(fileList));
+fileNames = fileList(1, 1:length(fileList));
 filesToMerge = [];
 for i = 1:length(fileNames)
     fileName = char(fileNames(i));
     if length(filePrefix) <= length(fileName)
-        if strcmp(fileName(1:length(filePrefix)), filePrefix) && strcmp(fileName(length(fileName) - 3:length(fileName)), '.txt')
+        if strcmp(fileName(1:length(filePrefix)), filePrefix) && strcmp(fileName(length(fileName)-3:length(fileName)), '.txt')
             filesToMerge = [filesToMerge {fileName}];
         end
     end
@@ -42,4 +42,3 @@ else
 end
 
 end
-

@@ -10,8 +10,8 @@ fid = fopen(['logs/' chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     verticalBars = strfind(line, '|');
-    if length(verticalBars) >= 3 
-        if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|') && length(line) >= verticalBars(3) + 1
+    if length(verticalBars) >= 3
+        if strcmp(line(10:12), '|c|') && ~strcmp(line(14), '|') && length(line) >= verticalBars(3) + 1
             message = line((verticalBars(3) + 1):length(line));
             questionMarks = strfind(message, '?');
             if length(questionMarks) >= 1
@@ -32,8 +32,8 @@ if questionLines > 0
     while feof(fid) == 0
         line = fgetl(fid);
         verticalBars = strfind(line, '|');
-        if length(verticalBars) >= 3 
-            if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|') && length(line) >= verticalBars(3) + 1
+        if length(verticalBars) >= 3
+            if strcmp(line(10:12), '|c|') && ~strcmp(line(14), '|') && length(line) >= verticalBars(3) + 1
                 message = line((verticalBars(3) + 1):length(line));
                 questionMarks = strfind(message, '?');
                 if length(questionMarks) >= 1
@@ -61,7 +61,7 @@ if questionLines > 0
             end
         end
         if x == 0
-            uniqueUsernames(length(uniqueUsernames) + 1) = usernames(i);
+            uniqueUsernames(length(uniqueUsernames)+1) = usernames(i);
             questionCount(length(uniqueUsernames)) = 1;
         end
         if i == questionLines || rem(i, 100) == 0
@@ -74,20 +74,16 @@ if questionLines > 0
         questionPercent(i) = 100 * (questionCount(i) / questionLines);
     end
 
-    d1 = cell(uniqueUsernames);
-    d2 = num2cell(transpose(questionCount));
-    d3 = num2cell(transpose(questionPercent));
-
-    dataArray = [d1 d2 d3];
-
+    c1 = cell(uniqueUsernames);
+    c2 = num2cell(transpose(questionCount));
+    c3 = num2cell(transpose(questionPercent));
+    dataArray = [c1 c2 c3];
     sortedData = sortrows(dataArray, -2);
-    sortedData(size(sortedData, 1), :) = [];
-
+    sortedData(size(sortedData, 1),:) = [];
     rank = cell(size(sortedData, 1), 1);
     for i = 1:size(sortedData, 1)
         rank(i) = num2cell(i);
     end
-
     header = {'Rank' 'Username' 'Questions' 'Percent Total'};
     questionStats = [header; [rank sortedData]];
 else

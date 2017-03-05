@@ -2,7 +2,7 @@ function [userGroupChatStats] = generateUserGroupChatStats(chatFile)
 % User Group Chat Statistics Generator
 %   This function takes a .txt file of a Pokémon Showdown chat log as
 %   input, then generates a list of PS user groups ranked by number of
-%   messages collectively sent to the chat room. The percentage of total 
+%   messages collectively sent to the chat room. The percentage of total
 %   messages sent to the chat room and average line length is also shown.
 
 chatLines = 0;
@@ -13,7 +13,7 @@ fid = fopen(['logs/' chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 14
-        if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|')
+        if strcmp(line(10:12), '|c|') && ~strcmp(line(14), '|')
             chatLines = chatLines + 1;
             verticalBars = strfind(line, '|');
             switch line(13)
@@ -53,23 +53,18 @@ fprintf('There are %d chat lines and %d total lines.\n', chatLines, totalLines);
 messagePercent = 100 * (lines / chatLines);
 averageLength = rdivide(characterCount, lines);
 
-d1 = {'Voices'; 'Drivers'; 'Moderators'; 'Bots'; 'Room Owners'; 'Leaders'; 'Administrators'; 'Regular Users'};
-d2 = num2cell(lines);
-d3 = num2cell(messagePercent);
-d4 = num2cell(averageLength);
-
-dataArray = [d1 d2 d3 d4];
-
+c1 = {'Voices'; 'Drivers'; 'Moderators'; 'Bots'; 'Room Owners'; 'Leaders'; 'Administrators'; 'Regular Users'};
+c2 = num2cell(lines);
+c3 = num2cell(messagePercent);
+c4 = num2cell(averageLength);
+dataArray = [c1 c2 c3 c4];
 sortedData = sortrows(dataArray, -2);
-sortedData = sortedData(all(cell2mat(sortedData(:, 2)) ~= 0, 2), :);
-
+sortedData = sortedData(all(cell2mat(sortedData(:, 2)) ~= 0, 2),:);
 rank = cell(size(sortedData, 1), 1);
 for i = 1:size(sortedData, 1)
     rank(i) = num2cell(i);
 end
-
 header = {'Rank' 'User Group' 'Lines' 'Percent Total' 'Average Length'};
-
 userGroupChatStats = [header; [rank sortedData]];
 
 end

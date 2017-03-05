@@ -11,7 +11,7 @@ fid = fopen(['logs/' chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 14
-        if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|')
+        if strcmp(line(10:12), '|c|') && ~strcmp(line(14), '|')
             chatLines = chatLines + 1;
         end
     end
@@ -24,11 +24,11 @@ fprintf('There are %d chat lines and %d total lines.\n', chatLines, totalLines);
 usernames = java_array('java.lang.String', chatLines);
 characterCount = zeros(1, chatLines);
 currentChatLine = 1;
-fid = fopen(['logs/' chatFile]);
+fid = fopen(['logs/', chatFile]);
 while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 14
-        if strcmp(line(10:12), '|c|') && ~ strcmp(line(14), '|')
+        if strcmp(line(10:12), '|c|') && ~strcmp(line(14), '|')
             verticalBars = strfind(line, '|');
             fullUsername = line((verticalBars(2) + 2):(verticalBars(3) - 1));
             alphanumericUsername = lower(regexprep(fullUsername, '[^a-zA-Z0-9]', ''));
@@ -56,7 +56,7 @@ for i = 1:chatLines
         end
     end
     if x == 0
-        uniqueUsernames(length(uniqueUsernames) + 1) = usernames(i);
+        uniqueUsernames(length(uniqueUsernames)+1) = usernames(i);
         messageCount(length(uniqueUsernames)) = 1;
         uniqueCharacterCount(length(uniqueUsernames)) = uniqueCharacterCount(length(uniqueUsernames)) + characterCount(i);
     end
@@ -65,7 +65,7 @@ for i = 1:chatLines
     end
 end
 
-messagePercent = double.empty(0,chatLines);
+messagePercent = double.empty(0, chatLines);
 for i = 1:length(messageCount)
     messagePercent(i) = 100 * (messageCount(i) / chatLines);
 end
@@ -73,23 +73,18 @@ end
 finalUniqueCharacterCount = [0, uniqueCharacterCount(uniqueCharacterCount ~= 0)];
 averageLength = rdivide(finalUniqueCharacterCount, messageCount);
 
-d1 = cell(uniqueUsernames);
-d2 = num2cell(transpose(messageCount));
-d3 = num2cell(transpose(messagePercent));
-d4 = num2cell(transpose(averageLength));
-
-dataArray = [d1 d2 d3 d4];
-
+c1 = cell(uniqueUsernames);
+c2 = num2cell(transpose(messageCount));
+c3 = num2cell(transpose(messagePercent));
+c4 = num2cell(transpose(averageLength));
+dataArray = [c1 c2 c3 c4];
 sortedData = sortrows(dataArray, -2);
-sortedData(size(sortedData, 1), :) = [];
-
+sortedData(size(sortedData, 1),:) = [];
 rank = cell(size(sortedData, 1), 1);
 for i = 1:size(sortedData, 1)
     rank(i) = num2cell(i);
 end
-
 header = {'Rank' 'Username' 'Lines' 'Percent Total' 'Average Length'};
-
 chatStats = [header; [rank sortedData]];
 
 end

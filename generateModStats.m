@@ -57,7 +57,7 @@ if modLines > 0
             end
         end
         if x == 0
-            uniqueUsernames(length(uniqueUsernames) + 1) = usernames(i);
+            uniqueUsernames(length(uniqueUsernames)+1) = usernames(i);
             modCount(length(uniqueUsernames)) = 1;
         end
         if i == modLines || rem(i, 100) == 0
@@ -70,20 +70,16 @@ if modLines > 0
         modPercent(i) = 100 * (modCount(i) / modLines);
     end
 
-    d1 = cell(uniqueUsernames);
-    d2 = num2cell(transpose(modCount));
-    d3 = num2cell(transpose(modPercent));
-
-    dataArray = [d1 d2 d3];
-
+    c1 = cell(uniqueUsernames);
+    c2 = num2cell(transpose(modCount));
+    c3 = num2cell(transpose(modPercent));
+    dataArray = [c1 c2 c3];
     sortedData = sortrows(dataArray, -2);
-    sortedData(size(sortedData, 1), :) = [];
-
+    sortedData(size(sortedData, 1),:) = [];
     rank = cell(size(sortedData, 1), 1);
     for i = 1:size(sortedData, 1)
         rank(i) = num2cell(i);
     end
-
     header = {'Rank' 'Username' 'Mod Actions' 'Percent Total'};
     modStats = [header; [rank sortedData]];
 else

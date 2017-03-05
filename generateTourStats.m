@@ -28,11 +28,11 @@ fprintf('There are %d tournament lines and %d total lines.\n', tourLines, totalL
 
 if tourCreates > 0
     if tourCreates == 1;
-            fprintf('There was 1 tournament created during this period.\n');
+        fprintf('There was 1 tournament created during this period.\n');
     else
-            fprintf('There were %d tournaments created during this period.\n', tourCreates);
+        fprintf('There were %d tournaments created during this period.\n', tourCreates);
     end
-    
+
     tourFormats = java_array('java.lang.String', tourCreates);
     currentChatLine = 1;
     fid = fopen(['logs/' chatFile]);
@@ -40,7 +40,7 @@ if tourCreates > 0
         line = fgetl(fid);
         if length(line) >= 21
             if strcmp(line(10:21), '|tournament|')
-            verticalBars = strfind(line, '|');
+                verticalBars = strfind(line, '|');
                 if length(verticalBars) >= 4;
                     if strcmp(line(verticalBars(2):verticalBars(3)), '|create|')
                         tourFormat = line((verticalBars(3) + 1):(verticalBars(4) - 1));
@@ -68,33 +68,29 @@ if tourCreates > 0
             end
         end
         if x == 0
-            uniqueTourFormats(length(uniqueTourFormats) + 1) = tourFormats(i);
+            uniqueTourFormats(length(uniqueTourFormats)+1) = tourFormats(i);
             tourFormatCount(length(uniqueTourFormats)) = 1;
         end
         if i == tourCreates || rem(i, 1) == 0
             fprintf('%d/%d lines scanned\n', i, tourCreates);
         end
     end
-    
-    tourFormatPercent = double.empty(0,tourCreates);
+
+    tourFormatPercent = double.empty(0, tourCreates);
     for i = 1:length(tourFormatCount)
         tourFormatPercent(i) = 100 * (tourFormatCount(i) / tourCreates);
     end
-    
-    d1 = cell(uniqueTourFormats);
-    d2 = num2cell(transpose(tourFormatCount));
-    d3 = num2cell(transpose(tourFormatPercent));
-    
-    dataArray = [d1 d2 d3];
-    
-    sortedData = sortrows(dataArray, -2);
-    sortedData(size(sortedData, 1), :) = [];
 
+    c1 = cell(uniqueTourFormats);
+    c2 = num2cell(transpose(tourFormatCount));
+    c3 = num2cell(transpose(tourFormatPercent));
+    dataArray = [c1 c2 c3];
+    sortedData = sortrows(dataArray, -2);
+    sortedData(size(sortedData, 1),:) = [];
     rank = cell(size(sortedData, 1), 1);
     for i = 1:size(sortedData, 1)
         rank(i) = num2cell(i);
     end
-
     header = {'Rank' 'Format' '#' 'Percent Total'};
     tourStats = [header; [rank sortedData]];
 else
