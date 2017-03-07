@@ -14,34 +14,35 @@ while feof(fid) == 0
     line = fgetl(fid);
     if length(line) >= 14
         if strcmp(line(10:12), '|c|') && ~strcmp(line(14), '|')
-            chatLines = chatLines + 1;
             verticalBars = strfind(line, '|');
+            msgLength = length(line) - verticalBars(3);
             switch line(13)
                 case '+'
                     lines(1) = lines(1) + 1;
-                    characterCount(1) = characterCount(1) + length(line) - verticalBars(3);
+                    characterCount(1) = characterCount(1) + msgLength;
                 case '%'
                     lines(2) = lines(2) + 1;
-                    characterCount(2) = characterCount(2) + length(line) - verticalBars(3);
+                    characterCount(2) = characterCount(2) + msgLength;
                 case '@'
                     lines(3) = lines(3) + 1;
-                    characterCount(3) = characterCount(3) + length(line) - verticalBars(3);
+                    characterCount(3) = characterCount(3) + msgLength;
                 case '*'
                     lines(4) = lines(4) + 1;
-                    characterCount(4) = characterCount(4) + length(line) - verticalBars(3);
+                    characterCount(4) = characterCount(4) + msgLength;
                 case '#'
                     lines(5) = lines(5) + 1;
-                    characterCount(5) = characterCount(5) + length(line) - verticalBars(3);
+                    characterCount(5) = characterCount(5) + msgLength;
                 case '&'
                     lines(6) = lines(6) + 1;
-                    characterCount(6) = characterCount(6) + length(line) - verticalBars(3);
+                    characterCount(6) = characterCount(6) + msgLength;
                 case '~'
                     lines(7) = lines(7) + 1;
-                    characterCount(7) = characterCount(7) + length(line) - verticalBars(3);
+                    characterCount(7) = characterCount(7) + msgLength;
                 otherwise
                     lines(8) = lines(8) + 1;
-                    characterCount(8) = characterCount(8) + length(line) - verticalBars(3);
+                    characterCount(8) = characterCount(8) + msgLength;
             end
+            chatLines = chatLines + 1;
         end
     end
     totalLines = totalLines + 1;
