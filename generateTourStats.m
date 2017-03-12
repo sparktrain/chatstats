@@ -95,7 +95,7 @@ if tourCreates > 0
     tourStats = [header; [rank sortedData]];
 else
     fprintf('There were no tournaments created during this period.\n');
-    tourStats = 0;
+    tourStats = {'Rank' 'Format' '#' 'Percent Total'};
 end
 
 end

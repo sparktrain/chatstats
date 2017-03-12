@@ -84,7 +84,7 @@ if modLines > 0
     modStats = [header; [rank sortedData]];
 else
     fprintf('There were no moderative actions taken during this period.\n');
-    modStats = 0;
+    modStats = {'Rank' 'Username' 'Mod Actions' 'Percent Total'};
 end
 
 end

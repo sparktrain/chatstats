@@ -88,7 +88,7 @@ if questionLines > 0
     questionStats = [header; [rank sortedData]];
 else
     fprintf('There were no lines containing question marks during this period.\n');
-    questionStats = 0;
+    questionStats = {'Rank' 'Username' 'Questions' 'Percent Total'};
 end
 
 end
