@@ -71,7 +71,7 @@ if tourCreates > 0
             uniqueTourFormats(length(uniqueTourFormats)+1) = tourFormats(i);
             tourFormatCount(length(uniqueTourFormats)) = 1;
         end
-        if i == tourCreates || rem(i, 1) == 0
+        if i == tourCreates || rem(i, 100) == 0
             fprintf('%d/%d lines scanned\n', i, tourCreates);
         end
     end
