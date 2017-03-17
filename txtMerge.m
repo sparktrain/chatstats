@@ -29,7 +29,7 @@ else
     for i = 1:length(filesToMerge)
         fid = fopen(char(strcat('logs/', filesToMerge(i))));
         fileText = [fileText transpose(fread(fid, '*char'))];
-        if 1 ~= length(filesToMerge)
+        if i ~= length(filesToMerge)
             fileText = [fileText 10]; % line break
         end
         fclose(fid);
