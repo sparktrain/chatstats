@@ -59,21 +59,24 @@ if tourCreates > 0
     tourFormatCount = double.empty(0, tourCreates);
 
     fprintf('Scanning the tournament database...\n');
+    reverse = '';
     for i = 1:tourCreates
-        x = 0;
         for j = 1:length(uniqueTourFormats)
             if tourFormats(i) == uniqueTourFormats(j)
                 tourFormatCount(j) = tourFormatCount(j) + 1;
-                x = x + 1;
+                unique = false;
+                break
+            else
+                unique = true;
             end
         end
-        if x == 0
+        if unique
             uniqueTourFormats(length(uniqueTourFormats)+1) = tourFormats(i);
             tourFormatCount(length(uniqueTourFormats)) = 1;
         end
-        if i == tourCreates || rem(i, 100) == 0
-            fprintf('%d/%d lines scanned\n', i, tourCreates);
-        end
+        progress = sprintf('%d/%d lines scanned\n', i, tourCreates);
+        fprintf([reverse, progress]);
+        reverse = repmat(sprintf('\b'), 1, length(progress));
     end
 
     tourFormatPercent = double.empty(0, tourCreates);

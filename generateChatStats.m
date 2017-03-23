@@ -46,23 +46,26 @@ messageCount = double.empty(0, chatLines);
 uniqueCharacterCount = zeros(1, chatLines);
 
 fprintf('Scanning the username database...\n');
+reverse = '';
 for i = 1:chatLines
-    x = 0;
     for j = 1:length(uniqueUsernames)
         if usernames(i) == uniqueUsernames(j)
             messageCount(j) = messageCount(j) + 1;
             uniqueCharacterCount(j) = uniqueCharacterCount(j) + characterCount(i);
-            x = x + 1;
+            unique = false;
+            break
+        else
+            unique = true;
         end
     end
-    if x == 0
+    if unique
         uniqueUsernames(length(uniqueUsernames)+1) = usernames(i);
         messageCount(length(uniqueUsernames)) = 1;
         uniqueCharacterCount(length(uniqueUsernames)) = uniqueCharacterCount(length(uniqueUsernames)) + characterCount(i);
     end
-    if i == chatLines || rem(i, 100) == 0
-        fprintf('%d/%d lines scanned\n', i, chatLines);
-    end
+    progress = sprintf('%d/%d lines scanned\n', i, chatLines);
+    fprintf([reverse, progress]);
+    reverse = repmat(sprintf('\b'), 1, length(progress));
 end
 
 messagePercent = double.empty(0, chatLines);

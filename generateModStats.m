@@ -48,21 +48,24 @@ if modLines > 0
     modCount = double.empty(0, modLines);
 
     fprintf('Scanning the username database...\n');
+    reverse = '';
     for i = 1:modLines
-        x = 0;
         for j = 1:length(uniqueUsernames)
             if usernames(i) == uniqueUsernames(j)
                 modCount(j) = modCount(j) + 1;
-                x = x + 1;
+                unique = false;
+                break
+            else
+                unique = true;
             end
         end
-        if x == 0
+        if unique
             uniqueUsernames(length(uniqueUsernames)+1) = usernames(i);
             modCount(length(uniqueUsernames)) = 1;
         end
-        if i == modLines || rem(i, 100) == 0
-            fprintf('%d/%d lines scanned\n', i, modLines);
-        end
+        progress = sprintf('%d/%d lines scanned\n', i, modLines);
+        fprintf([reverse, progress]);
+        reverse = repmat(sprintf('\b'), 1, length(progress));
     end
 
     modPercent = double.empty(0, modLines);

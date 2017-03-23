@@ -52,21 +52,24 @@ if questionLines > 0
     questionCount = double.empty(0, questionLines);
 
     fprintf('Scanning the username database...\n');
+    reverse = '';
     for i = 1:questionLines
-        x = 0;
         for j = 1:length(uniqueUsernames)
             if usernames(i) == uniqueUsernames(j)
                 questionCount(j) = questionCount(j) + 1;
-                x = x + 1;
+                unique = false;
+                break
+            else
+                unique = true;
             end
         end
-        if x == 0
+        if unique
             uniqueUsernames(length(uniqueUsernames)+1) = usernames(i);
             questionCount(length(uniqueUsernames)) = 1;
         end
-        if i == questionLines || rem(i, 100) == 0
-            fprintf('%d/%d lines scanned\n', i, questionLines);
-        end
+        progress = sprintf('%d/%d lines scanned\n', i, questionLines);
+        fprintf([reverse, progress]);
+        reverse = repmat(sprintf('\b'), 1, length(progress));
     end
 
     questionPercent = double.empty(0, questionLines);
