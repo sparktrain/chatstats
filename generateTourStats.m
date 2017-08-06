@@ -13,7 +13,7 @@ while feof(fid) == 0
         if strcmp(line(10:21), '|tournament|')
             tourLines = tourLines + 1;
             verticalBars = strfind(line, '|');
-            if length(verticalBars) >= 4;
+            if length(verticalBars) >= 4
                 if strcmp(line(verticalBars(2):verticalBars(3)), '|create|')
                     tourCreates = tourCreates + 1;
                 end
@@ -27,7 +27,7 @@ fprintf('The chat log has been scanned.\n');
 fprintf('There are %d tournament lines and %d total lines.\n', tourLines, totalLines);
 
 if tourCreates > 0
-    if tourCreates == 1;
+    if tourCreates == 1
         fprintf('There was 1 tournament created during this period.\n');
     else
         fprintf('There were %d tournaments created during this period.\n', tourCreates);
@@ -41,7 +41,7 @@ if tourCreates > 0
         if length(line) >= 21
             if strcmp(line(10:21), '|tournament|')
                 verticalBars = strfind(line, '|');
-                if length(verticalBars) >= 4;
+                if length(verticalBars) >= 4
                     if strcmp(line(verticalBars(2):verticalBars(3)), '|create|')
                         tourFormat = line((verticalBars(3) + 1):(verticalBars(4) - 1));
                         alphanumericTourFormat = lower(regexprep(tourFormat, '[^a-zA-Z0-9]', ''));
