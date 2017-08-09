@@ -2,3 +2,4 @@
 *.m~
 *.txt
 *.csv
+.DS_Store
